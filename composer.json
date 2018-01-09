@@ -30,6 +30,7 @@
         "dama/doctrine-test-bundle": "^4.0",
         "friendsofphp/php-cs-fixer": "^2.7",
         "phpunit/phpunit": "^6.5",
+        "squizlabs/php_codesniffer": "^3.2",
         "symfony/browser-kit": "^4.0",
         "symfony/css-selector": "^4.0",
         "symfony/debug-bundle": "^4.0",
