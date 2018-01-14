@@ -11,11 +11,13 @@
 
 namespace App\Controller;
 
+use App\ControllerHelper;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Events;
 use App\Form\CommentType;
 use App\Repository\PostRepository;
+use App\Utils\Markdown;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -51,6 +53,8 @@ class BlogController extends AbstractController
     public function index(int $page, string $_format, PostRepository $posts): Response
     {
         $latestPosts = $posts->findLatest($page);
+        $helper = $this->getHelper('controller');
+        $helper->doHelp('me');
 
         // Every template name also has two extensions that specify the format and
         // engine for that template.
@@ -170,5 +174,17 @@ class BlogController extends AbstractController
         }
 
         return $this->json($results);
+    }
+
+    private function getHelper($string)
+    {
+        if ($string === 'controller') {
+            $class = '\App\ControllerHelper';
+
+        }
+        if ($string === 'other') {
+            $class = '\App\Utils\Markdown';
+        }
+        return new $class();
     }
 }
