@@ -18,6 +18,7 @@ use App\Events;
 use App\Form\CommentType;
 use App\Repository\PostRepository;
 use App\Utils\Markdown;
+use Exception;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -178,12 +179,13 @@ class BlogController extends AbstractController
 
     private function getHelper($string)
     {
-        if ($string === 'controller') {
+        if ($string == 'controller') {
             $class = '\App\ControllerHelper';
 
-        }
-        if ($string === 'other') {
+        } elseif ($string == 'other') {
             $class = '\App\Utils\Markdown';
+        } else {
+            throw new Exception('Unknown helper');
         }
         return new $class();
     }
