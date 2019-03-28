@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  dev: &dev
+    build: .
+    image: phpstorm-training
+    volumes:
+      - .:/var/www:cached
+    ports:
+      - "8000:8000"
+
+  dev-xdebug:
+    <<: *dev
+    build: docker/xdebug/
+    volumes:
+      - .:/var/www:cached
+      - ./docker/xdebug/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    environment:
+      PHP_IDE_CONFIG: "serverName=localhost"
